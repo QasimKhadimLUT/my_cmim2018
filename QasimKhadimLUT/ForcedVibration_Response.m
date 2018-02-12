@@ -26,8 +26,10 @@ Eq_3= - (A*c*w) + B*(k - m*w^2)==F0/k;      %coefficients of sin(w*t)
 %% Subsituting the variables k,m,c and w with r and zeta
 %%
 syms r zeta real
+
 Eq_4= subs(Eq_2,{k-m*w^2,c*w},{1-r^2,2*zeta*r});
 Eq_5= subs(Eq_3,{k-m*w^2,c*w},{1-r^2,2*zeta*r});
+
 
 %% Solving the Eq_4 and Eq_5 for A and B
 %%
@@ -52,24 +54,27 @@ X*sin(phi)==B;
 
 
 X= (sqrt(A^2+B^2));         
-x_amp=1/sqrt((1-r^2)^2+(2*zeta*r)^2);       %amplification factor
+M =1./sqrt((1-r.^2).^2+(2*zeta*r).^2);  %amplification factor
 
-%% Plotting the results
+
+%% plotting the results
 %%
+r=[0 2.5];
 
-fplot(subs(x_amp,[zeta],[0,0.1,0.2,0.3,0.5,1]), [0, 2.5])
+M=fplot(subs(M,zeta,[0,0.1,0.2,0.3,0.4,0.5,1]),r,'k','LineWidth',1.5)          %plotting the function
 
 
 ylabel({'Amplification factor ($X\frac{k}{F_{0}}$)'},'FontUnits','points','interpreter','latex','FontSize',12,'FontName','Times New Roman')
 ylim([0 5])
 xlabel({'Frequency ratio($r=\frac{f}{f{n}}$)'},'FontUnits','points','interpreter','latex','FontSize',12,'FontName','Times New Roman')
-legend({'$y=\sin(t)$'},'FontUnits','points','interpreter','latex','FontSize',12,'FontName','Times','Location','NorthEast')
 title('Forced vibrations for an amplitude','FontUnits','points','FontWeight','normal','FontSize',12,'FontName','Times New Roman')
-print -depsc2 myplot.eps
-print -dpdf myplot.pdf
+annotation('textarrow',r,M,'String',['\varsigma =0',sprintf('\n'),'No damping','\varsigma =0.1','\varsigma =0.2','\varsigma =0.3','\varsigma =0.4','\varsigma =0.5','\varsigma =0',sprintf('\n'),'Critical damping'],'FontWeight','normal','FontSize',12,'FontName','Times New Roman')
 hold off
 
- 
+print('Z:\Qasim_Cmim\Assignment#03\pic01','-dmeta')
+
+
+
 
 
 
